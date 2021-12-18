@@ -2,11 +2,17 @@ package uk.ac.rgu.cm2100.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import uk.ac.rgu.cm2100.MainApp;
 import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,16 +20,13 @@ import java.util.List;
 public class OrderManagerController extends Controller<OrderManager> {
 
     @FXML
-    private ListView listOrders;
-
-    @FXML
-    private ListView listOrderDetails;
+    private ListView listOrders, listOrderDetails;
 
     @FXML
     private Label totalOrder;
 
     @FXML
-    private Button btnAddOrder;
+    private Button btnAddOrder, btnReturnOrderManager;
 
     public void onOrderSelect() {
         // Get order from selected String
@@ -46,8 +49,16 @@ public class OrderManagerController extends Controller<OrderManager> {
         }
     }
 
-    public void onAddOrderClicked() {
+    public void changeToAddOrderScene() throws IOException {
+        Parent parent = FXMLLoader.load(MainApp.class.getResource("createOrder.fxml"));
+        Stage window = (Stage) btnAddOrder.getScene().getWindow();
+        window.setScene(new Scene(parent, 1300, 800));
+    }
 
+    public void returnToOrderManager() throws IOException {
+        Parent parent = FXMLLoader.load(MainApp.class.getResource("orderManager.fxml"));
+        Stage window = (Stage) btnReturnOrderManager.getScene().getWindow();
+        window.setScene(new Scene(parent, 1300, 800));
     }
 
     @Override

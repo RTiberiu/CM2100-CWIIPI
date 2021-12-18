@@ -32,8 +32,8 @@ public class MainApp extends Application {
 
         // -------------------------------------------------------------------------------
         // TESTING ######################################################################
-         // Test orders
-         // Test Pizza class
+        // Test orders
+        // Test Pizza class
         Pizza margherita = new Pizza("Margherita", Crust.THIN);
         Pizza pepperoni = new Pizza("Pepperoni", Crust.THICK);
         margherita.addToppings(new PizzaTopping("Cheese", 5), new PizzaTopping("Basil", 2));
@@ -75,7 +75,7 @@ public class MainApp extends Application {
 
         // TESTING ######################################################################
         // -------------------------------------------------------------------------------
-        scene = new Scene(loadFXML("orderManager", orderManager), 1400, 800);
+        scene = new Scene(loadFXML("orderManager", orderManager), 1300, 800);
 
         // TODO Fix the error when adding the .css file
         // scene.getStylesheets().add("src/main/resources/styles/default.css"); //loads a default
@@ -94,12 +94,12 @@ public class MainApp extends Application {
      * @throws IOException
      */
     public static void setRoot(String fxml, Model model) throws IOException {
-        
+
         /* quick hack to strip the .fxml extension if provided by mistake */
         if(fxml.endsWith(".fxml")){
             fxml = fxml.split(".")[0];
         }
-  
+
         scene.setRoot(loadFXML(fxml, model));
     }
 
