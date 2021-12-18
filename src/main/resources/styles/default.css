@@ -11,3 +11,39 @@ and open the template in the editor.
 .root {
     -fx-font: 12pt Arial;
 }
+
+.tab-header-background {
+    -fx-background-color: rgb(33, 33, 33);
+}
+
+#listOrders .list-cell {
+    -fx-background-color: rgb(70,70,70);
+    -fx-text-fill: rgb(240, 240, 240);
+    -fx-border-width: 1px;
+    -fx-border-color:  rgba(234,170,0, 0.7);
+    -fx-padding: 10px 10px 10px 10px;
+}
+
+#listOrders .list-cell:selected {
+    -fx-background-color: rgb(40, 40, 40);
+}
+
+#listOrderDetails .list-cell {
+    -fx-background-color: rgb(90, 90, 90);
+    -fx-text-fill: rgb(240, 240, 240);
+    -fx-padding: 4px 4px 4px 4px;
+}
+
+#listOrderDetails .list-cell:selected {
+    -fx-background-color: rgb(40, 40, 40);
+}
+
+.button {
+    -fx-background-color: rgb(33, 33, 33);
+    -fx-border-color: rgb(240, 240, 240);
+    -fx-text-fill: rgb(240, 240, 240);
+}
+
+.button:hover {
+    -fx-border-color: rgb(234, 170, 0) !important;
+}

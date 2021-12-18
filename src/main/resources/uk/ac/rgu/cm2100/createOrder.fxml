@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="1086.0" style="-fx-background-color: rgb(44, 44, 44);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="741.0" prefWidth="1086.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="1086.0" style="-fx-background-color: rgb(33, 33, 33);" text="ADD ORDER" textFill="#f0f0f0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="112.0" prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: rgb(33, 33, 33);" text="Items" textFill="#f0f0f0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ListView layoutX="29.0" layoutY="158.0" prefHeight="375.0" prefWidth="290.0" style="-fx-background-color: rgb(70,70,70);" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="726.0" layoutY="112.0" prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: rgb(33, 33, 33);" text="Current Order" textFill="#f0f0f0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ListView layoutX="726.0" layoutY="158.0" prefHeight="375.0" prefWidth="290.0" style="-fx-background-color: rgb(70,70,70);" />
+            <Button fx:id="btnAddCompletedOrder" layoutX="384.0" layoutY="574.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="318.0" stylesheets="@../../../../styles/default.css" text="Add order" textFill="#f0f0f0" />
+            <Button fx:id="btnReturnOrderManager" layoutX="447.0" layoutY="631.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="192.0" text="Return" textFill="#f0f0f0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>
