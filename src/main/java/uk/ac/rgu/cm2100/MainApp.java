@@ -43,7 +43,19 @@ public class MainApp extends Application {
         Drink cola = new Drink("Cola", 70);
         Drink whiskey = new Drink("Whiskey", 99);
         Side fries = new Side("Fries", 10);
-        Side sweetPotato = new Side("Sweet", 10);
+        Side sweetPotato = new Side("Sweet Potato", 10);
+
+        // Add items and topping Menu Manager
+        menu.addItem(margherita);
+        menu.addItem(pepperoni);
+        menu.addItem(cola);
+        menu.addItem(whiskey);
+        menu.addItem(fries);
+        menu.addItem(sweetPotato);
+        menu.addTopping(new PizzaTopping("Cheese", 5));
+        menu.addTopping(new PizzaTopping("Basil", 2));
+        menu.addTopping(new PizzaTopping("Pepperoni", 10));
+        menu.addTopping(new PizzaTopping("Tomato Sauce", 5));
 
         // Add items to order
         Order order = new Order();

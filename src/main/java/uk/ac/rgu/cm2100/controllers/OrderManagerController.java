@@ -11,16 +11,17 @@ import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.MainApp;
 import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static uk.ac.rgu.cm2100.MainApp.menu;
+
 public class OrderManagerController extends Controller<OrderManager> {
 
     @FXML
-    private ListView listOrders, listOrderDetails;
+    private ListView listOrders, listOrderDetails, listItems;
 
     @FXML
     private Label totalOrder;
@@ -29,6 +30,7 @@ public class OrderManagerController extends Controller<OrderManager> {
     private Button btnAddOrder, btnReturnOrderManager;
 
     public void onOrderSelect() {
+        System.out.println("Triggered!");
         // Get order from selected String
         String selected = (String) listOrders.getSelectionModel().getSelectedItem();
 
@@ -53,6 +55,24 @@ public class OrderManagerController extends Controller<OrderManager> {
         Parent parent = FXMLLoader.load(MainApp.class.getResource("createOrder.fxml"));
         Stage window = (Stage) btnAddOrder.getScene().getWindow();
         window.setScene(new Scene(parent, 1300, 800));
+        // Initialize list
+        // initializeAddOrderScene();
+    }
+
+    public void initializeAddOrderScene() {
+        System.out.println("Initialize!");
+        // TODO Study more about MVC and eventListeners, as I'm sure I'm doing something wrong
+        // TODO Check if there's a better way of changing the scenes
+        // TODO After that, find a way to update the ListView listItems with the menu MenuManager
+        //  . Currently I have access to menu because it's imported from MainApp, but I'm not sure
+        //  if that's the best solution.
+    }
+
+    // TODO Delete this and remove it from the createOrder.fxml. I'm using this to check if the
+    //  ListView listItems is null.
+    public void testList() {
+        System.out.println("Clicked this bitch!");
+        System.out.println(listItems);
     }
 
     public void returnToOrderManager() throws IOException {
@@ -74,9 +94,10 @@ public class OrderManagerController extends Controller<OrderManager> {
         listOrders.setItems(FXCollections.observableList(simpleOrderList));
         this.model.addPropertyChangeListener((evt -> {
             listOrders.setItems(FXCollections.observableList(simpleOrderList));
+            OrderManagerController.this.onOrderSelect();
         }));
-
     }
+
 }
 
 
