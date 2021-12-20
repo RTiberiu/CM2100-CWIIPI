@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import uk.ac.rgu.cm2100.controllers.Controller;
+import uk.ac.rgu.cm2100.controllers.MainController;
 import uk.ac.rgu.cm2100.model.*;
 import uk.ac.rgu.cm2100.model.managers.MenuManager;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
@@ -87,15 +88,36 @@ public class MainApp extends Application {
 
         // TESTING ######################################################################
         // -------------------------------------------------------------------------------
-        scene = new Scene(loadFXML("orderManager", orderManager), 1300, 800);
 
-        // TODO Fix the error when adding the .css file
-        // scene.getStylesheets().add("src/main/resources/styles/default.css"); //loads a default
-        // stylesheet -
-        // helps fix some character encoding issues on some platforms...
 
-        stage.setScene(scene);
+        // scene = new Scene(loadFXML("mainScene", null), 1300, 800);
+        // stage.setScene(scene);
+        // stage.show();
+
+        // MainController mainController = new MainController();
+        // mainController.addModel(orderManager);
+        // mainController.addModel(menu);
+        // Parent parent = FXMLLoader.load(MainApp.class.getResource("mainScene.fxml"));
+        // stage.setScene(new Scene(parent, 1300, 800));
+        // stage.show();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
+        Parent parent = fxmlLoader.load();
+
+        // Get controller
+        MainController controller = fxmlLoader.getController();
+
+        // Add models to controller
+        controller.addModel(menu);
+        controller.addModel(orderManager);
+
+        // Display screen
+        stage.setScene(new Scene(parent, 1300, 800));
         stage.show();
+
+        // Initialize models
+        controller.initializeModels();
+
     }
 
     /**

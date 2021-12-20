@@ -5,6 +5,7 @@
  */
 package uk.ac.rgu.cm2100.model;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -22,5 +23,11 @@ public abstract class Model {
     
     public final void addPropertyChangeListener(PropertyChangeListener listener){
         this.pcs.addPropertyChangeListener(listener);
+    }
+
+    // Test
+    protected final void firePropertyChange(String name) {
+        PropertyChangeEvent evt = new PropertyChangeEvent(this, name, null, null);
+        this.pcs.firePropertyChange(evt);
     }
 }

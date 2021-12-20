@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.MainApp;
+import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
 import java.io.IOException;
@@ -16,18 +17,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static uk.ac.rgu.cm2100.MainApp.main;
 import static uk.ac.rgu.cm2100.MainApp.menu;
 
 public class OrderManagerController extends Controller<OrderManager> {
 
-    @FXML
-    private ListView listOrders, listOrderDetails, listItems;
+    private MainController mainController;
+    @FXML private ListView listOrders, listOrderDetails, listItems;
+    @FXML private Label totalOrder;
+    @FXML private Button btnAddOrder, btnReturnOrderManager;
 
-    @FXML
-    private Label totalOrder;
-
-    @FXML
-    private Button btnAddOrder, btnReturnOrderManager;
+    /**
+     * Assign the main controller to allow communication between controllers
+     * @param mainController
+     */
+    public void assignMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void onOrderSelect() {
         System.out.println("Triggered!");
@@ -52,34 +58,34 @@ public class OrderManagerController extends Controller<OrderManager> {
     }
 
     public void changeToAddOrderScene() throws IOException {
-        Parent parent = FXMLLoader.load(MainApp.class.getResource("createOrder.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("createOrder.fxml"));
+        Parent parent = fxmlLoader.load();
+        Controller controller = fxmlLoader.getController();
+
+
+        // Get items list
+        List<IMenuItem> itemsList = mainController.getMenuItemList();
+        itemsList.forEach(System.out::println);
+        // mainController.changeScene("createOrder");
+        // Show scene
         Stage window = (Stage) btnAddOrder.getScene().getWindow();
         window.setScene(new Scene(parent, 1300, 800));
-        // Initialize list
-        // initializeAddOrderScene();
-    }
 
-    public void initializeAddOrderScene() {
-        System.out.println("Initialize!");
-        // TODO Study more about MVC and eventListeners, as I'm sure I'm doing something wrong
-        // TODO Check if there's a better way of changing the scenes
-        // TODO After that, find a way to update the ListView listItems with the menu MenuManager
-        //  . Currently I have access to menu because it's imported from MainApp, but I'm not sure
-        //  if that's the best solution.
-    }
+        // Display items
 
-    // TODO Delete this and remove it from the createOrder.fxml. I'm using this to check if the
-    //  ListView listItems is null.
-    public void testList() {
-        System.out.println("Clicked this bitch!");
-        System.out.println(listItems);
     }
 
     public void returnToOrderManager() throws IOException {
-        Parent parent = FXMLLoader.load(MainApp.class.getResource("orderManager.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("orderManager.fxml"));
+        Parent parent = fxmlLoader.load();
+        Controller controller = fxmlLoader.getController();
+
+        // Show scene
         Stage window = (Stage) btnReturnOrderManager.getScene().getWindow();
         window.setScene(new Scene(parent, 1300, 800));
+
     }
+
 
     @Override
     public void setModel(OrderManager model) {
@@ -92,10 +98,12 @@ public class OrderManagerController extends Controller<OrderManager> {
             simpleOrderList.add("Order " + (x + 1));
         }
         listOrders.setItems(FXCollections.observableList(simpleOrderList));
-        this.model.addPropertyChangeListener((evt -> {
-            listOrders.setItems(FXCollections.observableList(simpleOrderList));
+        this.model.addPropertyChangeListener((evt) -> {
+            System.out.println(evt);
+            System.out.println("Event listener!");
+            listOrders.setItems(FXCollections.observableList(OrderManagerController.this.model.getOrders()));
             OrderManagerController.this.onOrderSelect();
-        }));
+        });
     }
 
 }
