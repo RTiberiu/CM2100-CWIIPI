@@ -23,15 +23,16 @@ import static uk.ac.rgu.cm2100.MainApp.menu;
 public class OrderManagerController extends Controller<OrderManager> {
 
     private MainController mainController;
-    @FXML private ListView listOrders, listOrderDetails, listItems;
+    @FXML private ListView listOrders, listOrderDetails;
     @FXML private Label totalOrder;
-    @FXML private Button btnAddOrder, btnReturnOrderManager;
+    @FXML private Button btnAddOrder;
 
     /**
      * Assign the main controller to allow communication between controllers
      * @param mainController
      */
-    public void assignMainController(MainController mainController) {
+    @Override
+    public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
@@ -58,34 +59,21 @@ public class OrderManagerController extends Controller<OrderManager> {
     }
 
     public void changeToAddOrderScene() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("createOrder.fxml"));
-        Parent parent = fxmlLoader.load();
-        Controller controller = fxmlLoader.getController();
+        // FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("createOrder.fxml"));
+        // Parent parent = fxmlLoader.load();
+        // Controller controller = fxmlLoader.getController();
+
+        // Test changeScene
+        Stage window = (Stage) btnAddOrder.getScene().getWindow();
+        mainController.changeScene("createOrder", window);
+
+        // Assign main controller
 
 
         // Get items list
-        List<IMenuItem> itemsList = mainController.getMenuItemList();
-        itemsList.forEach(System.out::println);
-        // mainController.changeScene("createOrder");
-        // Show scene
-        Stage window = (Stage) btnAddOrder.getScene().getWindow();
-        window.setScene(new Scene(parent, 1300, 800));
-
-        // Display items
-
+         List<IMenuItem> itemsList = mainController.getMenuItemList();
+         itemsList.forEach(System.out::println);
     }
-
-    public void returnToOrderManager() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("orderManager.fxml"));
-        Parent parent = fxmlLoader.load();
-        Controller controller = fxmlLoader.getController();
-
-        // Show scene
-        Stage window = (Stage) btnReturnOrderManager.getScene().getWindow();
-        window.setScene(new Scene(parent, 1300, 800));
-
-    }
-
 
     @Override
     public void setModel(OrderManager model) {

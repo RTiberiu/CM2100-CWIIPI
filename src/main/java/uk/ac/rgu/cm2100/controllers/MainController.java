@@ -3,6 +3,8 @@ package uk.ac.rgu.cm2100.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.MainApp;
 import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Model;
@@ -41,6 +43,9 @@ public class MainController {
         orderManagerController.setModel((OrderManager) matchClassWithModel(orderManagerController));
     }
 
+    // TODO Better way to match controller with model, as CreateOrderController can't be assigned
+    //  a model this way.
+    // Matches an object's name with the name of a model and returns the found model
     private Model matchClassWithModel(Object controller) {
         Model output = null;
         String controllerName = controller.getClass().getSimpleName();
@@ -54,24 +59,35 @@ public class MainController {
         return output;
     }
 
-
     // Initialize MainController into orderManagerController and menuManagerController
     @FXML private void initialize() {
         System.out.println("Initialize...");
-        orderManagerController.assignMainController(this);
-        menuManagerController.assignMainController(this);
+        orderManagerController.setMainController(this);
+        menuManagerController.setMainController(this);
     }
 
+    // TODO Change scenes from MainController.
+    // TODO Assign mainController with each change in scene
     // Change scene
-    public void changeScene(String scene) throws IOException {
+    public void changeScene(String scene, Stage window) throws IOException {
         System.out.println("Change Scene!");
+        // Display the scene
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(scene + ".fxml"));
         Parent parent = fxmlLoader.load();
-        Controller controller = fxmlLoader.getController();
-        System.out.println(controller);
+        window.setScene(new Scene(parent, 1300, 800));
 
-        // Match model with controller name
-        controller.setModel(matchClassWithModel(controller));
+        // Get model for controller and set it
+        Controller controller = fxmlLoader.getController();
+        Model model = matchClassWithModel(controller);
+
+        // TESTING CREATE ORDER CONTROLLER - DELETE AFTER
+        controller.setModel(models.get(0));
+        // Assign mainController
+        controller.setMainController(this);
+
+//
+//        // Match model with controller name
+//        controller.setModel(matchClassWithModel(controller));
 
     }
 

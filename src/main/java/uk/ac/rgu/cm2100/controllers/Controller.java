@@ -16,7 +16,8 @@ import uk.ac.rgu.cm2100.model.Model;
 public abstract class Controller<T extends Model> {
     
     protected T model;
-    
+    protected MainController mainController;
+
     public abstract void setModel(T model);
-    
+    public abstract  void setMainController(MainController mainController);
 }

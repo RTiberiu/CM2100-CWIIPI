@@ -105,18 +105,18 @@ public class MainApp extends Application {
         Parent parent = fxmlLoader.load();
 
         // Get controller
-        MainController controller = fxmlLoader.getController();
+        MainController mainController = fxmlLoader.getController();
 
         // Add models to controller
-        controller.addModel(menu);
-        controller.addModel(orderManager);
+        mainController.addModel(menu);
+        mainController.addModel(orderManager);
 
         // Display screen
         stage.setScene(new Scene(parent, 1300, 800));
         stage.show();
 
         // Initialize models
-        controller.initializeModels();
+        mainController.initializeModels();
 
     }
 
