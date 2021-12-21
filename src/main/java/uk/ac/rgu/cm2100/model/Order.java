@@ -16,7 +16,7 @@ import uk.ac.rgu.cm2100.model.IMenuItem.PriceComparator;
  *
  * @author mark
  */
-public class Order implements IOrder {
+public class Order extends Model implements IOrder {
     
     private List<IMenuItem> items;
     
@@ -26,6 +26,8 @@ public class Order implements IOrder {
     
     public void addItem(IMenuItem item){
         this.items.add(item);
+        System.out.println("Added item from Order class");
+        this.firePropertyChange("items");
     }
     
     public void sortByName(){

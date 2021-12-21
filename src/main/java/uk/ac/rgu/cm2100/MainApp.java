@@ -85,84 +85,30 @@ public class MainApp extends Application {
         orderManager.addOrder(order);
         orderManager.addOrder(order1);
         orderManager.addOrder(order2);
-
         // TESTING ######################################################################
         // -------------------------------------------------------------------------------
 
 
-        // scene = new Scene(loadFXML("mainScene", null), 1300, 800);
-        // stage.setScene(scene);
-        // stage.show();
-
-        // MainController mainController = new MainController();
-        // mainController.addModel(orderManager);
-        // mainController.addModel(menu);
-        // Parent parent = FXMLLoader.load(MainApp.class.getResource("mainScene.fxml"));
-        // stage.setScene(new Scene(parent, 1300, 800));
-        // stage.show();
-
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
         Parent parent = fxmlLoader.load();
 
-        // Get controller
+        // Get the main controller
         MainController mainController = fxmlLoader.getController();
 
-        // Add models to controller
-        mainController.addModel(menu);
-        mainController.addModel(orderManager);
+        // Assign models to fxml files and store them in mainController
+        mainController.linkFxmlWithModel("createOrder", orderManager);
+        mainController.linkFxmlWithModel("menuManager", menu);
+        mainController.linkFxmlWithModel("orderManager", orderManager);
 
         // Display screen
         stage.setScene(new Scene(parent, 1300, 800));
         stage.show();
 
-        // Initialize models
-        mainController.initializeModels();
-
-    }
-
-    /**
-     * Sets the root of the scene using the given fxml file and model
-     *
-     * @param fxml
-     * @param model
-     * @throws IOException
-     */
-    public static void setRoot(String fxml, Model model) throws IOException {
-
-        /* quick hack to strip the .fxml extension if provided by mistake */
-        if(fxml.endsWith(".fxml")){
-            fxml = fxml.split(".")[0];
-        }
-
-        scene.setRoot(loadFXML(fxml, model));
-    }
-
-    /**
-     * Loads the given fxml file and sets the given model in the controller
-     *
-     * @param fxml
-     * @param model
-     * @return
-     * @throws IOException
-     */
-    private static Parent loadFXML(String fxml, Model model) throws IOException {
-
-        /* Create the FXMLLoader and load the given fxml file */
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
-
-        /* Load the fxml into a parent */
-        Parent parent = fxmlLoader.load();
-
-        /* Get the controller and set the model */
-        Controller controller = fxmlLoader.getController();
-        controller.setModel(model);
-
-        /* Return the parent */
-        return parent;
+        // Initialize the first screen
+        mainController.initializeFirstScreen();
     }
 
     public static void main(String[] args) {
-        // Launch window
         launch();
     }
 

@@ -8,91 +8,73 @@ import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.MainApp;
 import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Model;
+import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.MenuManager;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainController {
-    private List<Model> models;
+    private HashMap<String, Model> models;
     @FXML private MenuManagerController menuManagerController;
     @FXML private OrderManagerController orderManagerController;
 
     // Constructor
     public MainController() {
-        this.models = new ArrayList<>();
+        this.models = new HashMap<>();
     }
 
-    // Setter for models
-    public void setModels(List<Model> models) {
-        this.models = models;
+    // Add fxml file names and their respective model to a map
+    public void linkFxmlWithModel(String fxml, Model model) {
+        models.put(fxml, model);
     }
 
-    // Add a single model to models
-    public void addModel(Model model) {
-        this.models.add(model);
+    // Assign main controllers and set models
+    public void initializeFirstScreen() {
+        System.out.println("Initialize first screen...");
+        Controller orderController = orderManagerController;
+        Controller menuController = menuManagerController;
+        orderController.setMainController(MainController.this);
+        menuController.setMainController(MainController.this);
+        orderController.setModel(models.get("orderManager"));
+        menuController.setModel(models.get("menuManager"));
     }
 
-    // Initialize models to the other controllers
-    // TODO Find a better way of initializing the models
-    public void initializeModels() {
-        System.out.println("Initialize models!");
-        menuManagerController.setModel((MenuManager) matchClassWithModel(menuManagerController));
-        orderManagerController.setModel((OrderManager) matchClassWithModel(orderManagerController));
-    }
-
-    // TODO Better way to match controller with model, as CreateOrderController can't be assigned
-    //  a model this way.
-    // Matches an object's name with the name of a model and returns the found model
-    private Model matchClassWithModel(Object controller) {
-        Model output = null;
-        String controllerName = controller.getClass().getSimpleName();
-        for (Model model : models) {
-            String modelName = model.getClass().getSimpleName();
-            if (controllerName.contains(modelName)) {
-                System.out.println(modelName);
-                output = model;
-            }
-        }
-        return output;
-    }
-
-    // Initialize MainController into orderManagerController and menuManagerController
-    @FXML private void initialize() {
-        System.out.println("Initialize...");
-        orderManagerController.setMainController(this);
-        menuManagerController.setMainController(this);
-    }
-
-    // TODO Change scenes from MainController.
-    // TODO Assign mainController with each change in scene
-    // Change scene
+    // Change scene, trigger setModel and setMainController
     public void changeScene(String scene, Stage window) throws IOException {
         System.out.println("Change Scene!");
         // Display the scene
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(scene + ".fxml"));
         Parent parent = fxmlLoader.load();
-        window.setScene(new Scene(parent, 1300, 800));
+        window.getScene().setRoot(parent);
 
         // Get model for controller and set it
         Controller controller = fxmlLoader.getController();
-        Model model = matchClassWithModel(controller);
 
-        // TESTING CREATE ORDER CONTROLLER - DELETE AFTER
-        controller.setModel(models.get(0));
         // Assign mainController
-        controller.setMainController(this);
+        controller.setMainController(MainController.this);
 
-//
-//        // Match model with controller name
-//        controller.setModel(matchClassWithModel(controller));
-
+        // Assign model from models
+        controller.setModel(models.get(scene));
     }
 
-    // Get menu item list from MenuManagerController
-    public List<IMenuItem> getMenuItemList() {
+    // TODO Figure out why the listview from orderManager is not displayed, even though the
+    //  information prints from inside .setModel()
+    // Resume to main screen
+    public void changeToMainScreen(Stage window) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
+        Parent parent = fxmlLoader.load();
+        window.getScene().setRoot(parent);
+
+        MainController.this.initializeFirstScreen();
+    }
+
+    // Allow other Controllers to get items from MenuManagerController
+    public List<IMenuItem> getAvailableItems() {
         return menuManagerController.model.getItems();
     }
 

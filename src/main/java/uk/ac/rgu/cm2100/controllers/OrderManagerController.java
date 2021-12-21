@@ -36,6 +36,11 @@ public class OrderManagerController extends Controller<OrderManager> {
         this.mainController = mainController;
     }
 
+    // TEST- DELETE AFTER
+    public void getMainController() {
+        System.out.println(mainController);
+    }
+
     public void onOrderSelect() {
         System.out.println("Triggered!");
         // Get order from selected String
@@ -58,27 +63,18 @@ public class OrderManagerController extends Controller<OrderManager> {
         }
     }
 
+    // Change scene by calling .changeScene from MainController
     public void changeToAddOrderScene() throws IOException {
-        // FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("createOrder.fxml"));
-        // Parent parent = fxmlLoader.load();
-        // Controller controller = fxmlLoader.getController();
-
-        // Test changeScene
         Stage window = (Stage) btnAddOrder.getScene().getWindow();
+        System.out.println("Main Controller from button change");
+        System.out.println(mainController);
         mainController.changeScene("createOrder", window);
-
-        // Assign main controller
-
-
-        // Get items list
-         List<IMenuItem> itemsList = mainController.getMenuItemList();
-         itemsList.forEach(System.out::println);
     }
 
     @Override
     public void setModel(OrderManager model) {
+        System.out.println("Setting OrderManagerController!");
         this.model = model;
-
         // Get all orders
         int numberOfOrders = OrderManagerController.this.model.getOrders().size();
         List<String> simpleOrderList = new ArrayList<>();
@@ -86,10 +82,11 @@ public class OrderManagerController extends Controller<OrderManager> {
             simpleOrderList.add("Order " + (x + 1));
         }
         listOrders.setItems(FXCollections.observableList(simpleOrderList));
-        this.model.addPropertyChangeListener((evt) -> {
+        System.out.println(listOrders.getItems());
+        this.model.addPropertyChangeSupportListener((evt) -> {
             System.out.println(evt);
             System.out.println("Event listener!");
-            listOrders.setItems(FXCollections.observableList(OrderManagerController.this.model.getOrders()));
+            listOrders.setItems(FXCollections.observableList(simpleOrderList));
             OrderManagerController.this.onOrderSelect();
         });
     }

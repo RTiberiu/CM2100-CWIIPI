@@ -9,7 +9,6 @@ public class MenuManagerController extends Controller<MenuManager> {
 
     private MainController mainController;
     @FXML private ListView listItems;
-    @FXML private Button btnReturnOrderManager;
 
     /**
      * Assign the main controller to allow communication between controllers
@@ -22,7 +21,6 @@ public class MenuManagerController extends Controller<MenuManager> {
 
     @Override
     public void setModel(MenuManager model) {
-        System.out.println("Menu manager model was set!");
         this.model = model;
     }
 

@@ -28,6 +28,7 @@ public class MenuManager extends Model {
     
     public void addItem(IMenuItem item){
         this.items.add(item);
+        this.firePropertyChange("items");
     }
     
     public List<IMenuItem> getItems(){

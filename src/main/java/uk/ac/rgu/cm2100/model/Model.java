@@ -21,7 +21,7 @@ public abstract class Model {
         this.pcs = new PropertyChangeSupport(this);
     }
     
-    public final void addPropertyChangeListener(PropertyChangeListener listener){
+    public final void addPropertyChangeSupportListener(PropertyChangeListener listener){
         this.pcs.addPropertyChangeListener(listener);
     }
 
