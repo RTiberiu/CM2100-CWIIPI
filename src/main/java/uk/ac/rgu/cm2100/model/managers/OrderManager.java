@@ -24,6 +24,7 @@ public class OrderManager extends Model {
     
     public void addOrder(Order order){
         this.orders.add(order);
+        this.firePropertyChange("orders");
     }
     
     public List<Order> getOrders(){

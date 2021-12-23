@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../../../../styles/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rgu.cm2100.controllers.MainController">
+<VBox maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../../../../styles/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane prefHeight="1200" prefWidth="1500" tabClosingPolicy="UNAVAILABLE">
         <tabs>

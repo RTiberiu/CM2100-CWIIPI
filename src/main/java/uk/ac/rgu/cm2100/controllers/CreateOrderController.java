@@ -29,9 +29,10 @@ public class CreateOrderController extends Controller<OrderManager> {
 
     // TODO Change to mainScene by invoking .changeToMainScreen(window);
     @FXML private void returnToOrderManager() throws IOException {
-        Stage window = (Stage) btnReturnOrderManager.getScene().getWindow();
-        mainController.changeScene("orderManager", window);
-        // mainController.changeToMainScreen(window);
+        Stage stage = (Stage) btnReturnOrderManager.getScene().getWindow();
+        // mainController.changeScene("orderManager", window);
+        System.out.println(stage);
+        mainController.changeToMainScreen(stage);
     }
 
     @FXML private void onRemoveItemFromOrder() {

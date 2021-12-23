@@ -36,16 +36,10 @@ public class OrderManagerController extends Controller<OrderManager> {
         this.mainController = mainController;
     }
 
-    // TEST- DELETE AFTER
-    public void getMainController() {
-        System.out.println(mainController);
-    }
-
     public void onOrderSelect() {
         System.out.println("Triggered!");
         // Get order from selected String
         String selected = (String) listOrders.getSelectionModel().getSelectedItem();
-
         if (selected != null) {
             int orderIndex = Integer.parseInt(selected.split(" ")[1]) - 1;
             Order currentOrder = OrderManagerController.this.model.getOrders().get(orderIndex);
@@ -65,10 +59,19 @@ public class OrderManagerController extends Controller<OrderManager> {
 
     // Change scene by calling .changeScene from MainController
     public void changeToAddOrderScene() throws IOException {
-        Stage window = (Stage) btnAddOrder.getScene().getWindow();
+        Stage stage = (Stage) btnAddOrder.getScene().getWindow();
         System.out.println("Main Controller from button change");
         System.out.println(mainController);
-        mainController.changeScene("createOrder", window);
+        mainController.changeScene("createOrder", stage);
+    }
+    
+    public List<String> getSimpleOrderList() {
+        int numberOfOrders = this.model.getOrders().size();
+        List<String> simpleOrderList = new ArrayList<>();
+        for (int x = 0; x < numberOfOrders; x ++) {
+            simpleOrderList.add("Order " + (x + 1));
+        }
+        return simpleOrderList;
     }
 
     @Override
@@ -76,18 +79,16 @@ public class OrderManagerController extends Controller<OrderManager> {
         System.out.println("Setting OrderManagerController!");
         this.model = model;
         // Get all orders
-        int numberOfOrders = OrderManagerController.this.model.getOrders().size();
-        List<String> simpleOrderList = new ArrayList<>();
-        for (int x = 0; x < numberOfOrders; x ++) {
-            simpleOrderList.add("Order " + (x + 1));
-        }
-        listOrders.setItems(FXCollections.observableList(simpleOrderList));
-        System.out.println(listOrders.getItems());
+        System.out.println(this.model);
+        System.out.println(model);
+        listOrders.setItems(FXCollections.observableList(getSimpleOrderList()));
         this.model.addPropertyChangeSupportListener((evt) -> {
-            System.out.println(evt);
-            System.out.println("Event listener!");
-            listOrders.setItems(FXCollections.observableList(simpleOrderList));
-            OrderManagerController.this.onOrderSelect();
+            System.out.println("Event listener from OrderManagerController!");
+            System.out.println("Before setting items");
+            System.out.println(listOrders.getItems());
+            listOrders.setItems(FXCollections.observableList(getSimpleOrderList()));
+            System.out.println("After setting items");
+            System.out.println(listOrders.getItems());
         });
     }
 

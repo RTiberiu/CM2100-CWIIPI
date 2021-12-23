@@ -31,13 +31,15 @@ public class MainController {
     // Add fxml file names and their respective model to a map
     public void linkFxmlWithModel(String fxml, Model model) {
         models.put(fxml, model);
+        System.out.println("Link added!");
     }
 
     // Assign main controllers and set models
-    public void initializeFirstScreen() {
+    @FXML private void initialize() throws IOException {
         System.out.println("Initialize first screen...");
         Controller orderController = orderManagerController;
         Controller menuController = menuManagerController;
+
         orderController.setMainController(MainController.this);
         menuController.setMainController(MainController.this);
         orderController.setModel(models.get("orderManager"));
@@ -59,18 +61,18 @@ public class MainController {
         controller.setMainController(MainController.this);
 
         // Assign model from models
+        System.out.println("Change model - the model of the controller before setting it");
+        System.out.println(controller.model);
         controller.setModel(models.get(scene));
+        System.out.println(controller.model);
     }
 
     // TODO Figure out why the listview from orderManager is not displayed, even though the
     //  information prints from inside .setModel()
     // Resume to main screen
-    public void changeToMainScreen(Stage window) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
-        Parent parent = fxmlLoader.load();
-        window.getScene().setRoot(parent);
-
-        MainController.this.initializeFirstScreen();
+    public void changeToMainScreen(Stage stage) throws IOException {
+        Parent parent = FXMLLoader.load(MainApp.class.getResource("mainScene.fxml"));
+        stage.getScene().setRoot(parent);
     }
 
     // Allow other Controllers to get items from MenuManagerController
