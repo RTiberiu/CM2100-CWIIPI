@@ -92,11 +92,15 @@ public class MainApp extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
 
+
         // Create the main controller and add data to it
         MainController mainController = new MainController();
         mainController.linkFxmlWithModel("createOrder", orderManager);
+        mainController.linkFxmlWithModel("createPizza", menu);
         mainController.linkFxmlWithModel("menuManager", menu);
         mainController.linkFxmlWithModel("orderManager", orderManager);
+        mainController.linkFxmlWithModel("addToppings", menu);
+
 
         // Assign the main controller to the fxml file, and load the file
         fxmlLoader.setController(mainController);
@@ -111,7 +115,9 @@ public class MainApp extends Application {
 //        mainController.linkFxmlWithModel("orderManager", orderManager);
         System.out.println("Links added");
         // Display screen
-        stage.setScene(new Scene(parent, 1300, 800));
+        stage.setScene(new Scene(parent, 1300, 700));
+        stage.setTitle("Restaurant Manager");
+        stage.setResizable(false);
         stage.show();
 
         // TODO Replace this with @FXML private void initialize() in MainController

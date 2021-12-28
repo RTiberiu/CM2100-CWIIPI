@@ -27,12 +27,9 @@ public class CreateOrderController extends Controller<OrderManager> {
         this.mainController = mainController;
     }
 
-    // TODO Change to mainScene by invoking .changeToMainScreen(window);
     @FXML private void returnToOrderManager() throws IOException {
         Stage stage = (Stage) btnReturnOrderManager.getScene().getWindow();
-        // mainController.changeScene("orderManager", window);
-        System.out.println(stage);
-        mainController.changeToMainScreen(stage);
+        mainController.changeToMainScreen(stage, 0);
     }
 
     @FXML private void onRemoveItemFromOrder() {
@@ -42,18 +39,20 @@ public class CreateOrderController extends Controller<OrderManager> {
     }
 
     @FXML private void onAddItemToOrder() {
-        // Get selected item and add it to the order
+        // Get selected item and add it to the order if it's not null
         Object item = listItems.getSelectionModel().getSelectedItem();
-        currentItems.add((IMenuItem) item);
-        listCurrentOrder.setItems(FXCollections.observableList(currentItems));
+        if (item != null) {
+            currentItems.add((IMenuItem) item);
+            listCurrentOrder.setItems(FXCollections.observableList(currentItems));
+        }
     }
 
     @FXML private void onAddOrder() throws IOException {
         if (currentItems.size() != 0) {
             Order order = new Order();
             currentItems.forEach((iMenuItem -> order.addItem(iMenuItem)));
-            model.addOrder(order);
-            returnToOrderManager();
+            model.addOrder(order); // reverse order
+            returnToOrderManager(); // reverse order
         }
     }
 

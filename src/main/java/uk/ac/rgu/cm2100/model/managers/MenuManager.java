@@ -30,6 +30,14 @@ public class MenuManager extends Model {
         this.items.add(item);
         this.firePropertyChange("items");
     }
+
+    // If item is present in list, remove it and call and trigger event
+    public void removeItem(IMenuItem item) {
+        if (this.items.contains(item)) {
+            this.items.remove(item);
+            this.firePropertyChange("items");
+        }
+    }
     
     public List<IMenuItem> getItems(){
         return this.items;
@@ -37,9 +45,18 @@ public class MenuManager extends Model {
     
     public void addTopping(PizzaTopping topping){
         this.availableToppings.add(topping);
+        this.firePropertyChange("availableToppings");
     }
     
     public List<PizzaTopping> getToppings(){
         return this.availableToppings;
+    }
+
+    // If item is present in list, remove it and call and trigger event
+    public void removeTopping(PizzaTopping item) {
+        if (this.availableToppings.contains(item)) {
+            this.availableToppings.remove(item);
+            this.firePropertyChange("availableToppings");
+        }
     }
 }

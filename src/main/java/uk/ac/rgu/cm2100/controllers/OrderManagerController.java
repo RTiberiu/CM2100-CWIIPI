@@ -40,6 +40,7 @@ public class OrderManagerController extends Controller<OrderManager> {
         System.out.println("Triggered!");
         // Get order from selected String
         String selected = (String) listOrders.getSelectionModel().getSelectedItem();
+
         if (selected != null) {
             int orderIndex = Integer.parseInt(selected.split(" ")[1]) - 1;
             Order currentOrder = OrderManagerController.this.model.getOrders().get(orderIndex);
@@ -60,8 +61,6 @@ public class OrderManagerController extends Controller<OrderManager> {
     // Change scene by calling .changeScene from MainController
     public void changeToAddOrderScene() throws IOException {
         Stage stage = (Stage) btnAddOrder.getScene().getWindow();
-        System.out.println("Main Controller from button change");
-        System.out.println(mainController);
         mainController.changeScene("createOrder", stage);
     }
     
@@ -78,17 +77,10 @@ public class OrderManagerController extends Controller<OrderManager> {
     public void setModel(OrderManager model) {
         System.out.println("Setting OrderManagerController!");
         this.model = model;
-        // Get all orders
-        System.out.println(this.model);
-        System.out.println(model);
+        // Assign all orders to the ListOrders ListView
         listOrders.setItems(FXCollections.observableList(getSimpleOrderList()));
         this.model.addPropertyChangeSupportListener((evt) -> {
-            System.out.println("Event listener from OrderManagerController!");
-            System.out.println("Before setting items");
-            System.out.println(listOrders.getItems());
             listOrders.setItems(FXCollections.observableList(getSimpleOrderList()));
-            System.out.println("After setting items");
-            System.out.println(listOrders.getItems());
         });
     }
 

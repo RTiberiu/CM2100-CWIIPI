@@ -9,7 +9,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: rgb(44, 44, 44);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rgu.cm2100.controllers.CreateOrderController">
    <children>
-      <Pane prefHeight="1200" prefWidth="1500" stylesheets="@../../../../styles/default.css">
+      <Pane prefHeight="700" prefWidth="1300" stylesheets="@../../../../styles/default.css">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="1300.0" style="-fx-background-color: rgb(33, 33, 33);" text="ADD ORDER" textFill="#f0f0f0">
                <font>
@@ -30,8 +30,8 @@
             <ListView fx:id="listCurrentOrder" layoutX="914.0" layoutY="158.0" prefHeight="375.0" prefWidth="290.0" style="-fx-background-color: rgb(70,70,70);" stylesheets="@../../../../styles/default.css" />
             <Button fx:id="btnAddCompletedOrder" layoutX="472.0" layoutY="587.0" mnemonicParsing="false" onAction="#onAddOrder" prefHeight="35.0" prefWidth="318.0" stylesheets="@../../../../styles/default.css" text="Add order" textFill="#f0f0f0" />
             <Button fx:id="btnReturnOrderManager" layoutX="543.0" layoutY="641.0" mnemonicParsing="false" onAction="#returnToOrderManager" prefHeight="35.0" prefWidth="176.0" stylesheets="@../../../../styles/default.css" text="Return" textFill="#f0f0f0" />
-            <Button fx:id="btnAddToOrder" layoutX="555.0" layoutY="182.0" mnemonicParsing="false" onAction="#onAddItemToOrder" prefHeight="35.0" prefWidth="151.0" text="ADD TO ORDER" />
-            <Button fx:id="btnRemoveItem" layoutX="555.0" layoutY="248.0" mnemonicParsing="false" onAction="#onRemoveItemFromOrder" prefHeight="35.0" prefWidth="151.0" text="REMOVE FROM ORDER" />
+            <Button fx:id="btnAddToOrder" layoutX="543.0" layoutY="186.0" mnemonicParsing="false" onAction="#onAddItemToOrder" prefHeight="35.0" prefWidth="176.0" text="ADD TO ORDER" />
+            <Button fx:id="btnRemoveItem" layoutX="543.0" layoutY="249.0" mnemonicParsing="false" onAction="#onRemoveItemFromOrder" prefHeight="35.0" prefWidth="176.0" text="REMOVE FROM ORDER" />
          </children>
       </Pane>
    </children>

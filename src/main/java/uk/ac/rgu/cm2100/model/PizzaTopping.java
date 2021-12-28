@@ -26,4 +26,9 @@ public class PizzaTopping {
     public int getPrice(){
         return this.price;
     }
+
+    @Override
+    public String toString() {
+        return this.name + "\t" + this.price + "p";
+    }
 }

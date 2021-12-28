@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1500.0" style="-fx-background-color: rgb(44,44,44);" stylesheets="@../../../../styles/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rgu.cm2100.controllers.OrderManagerController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: rgb(44,44,44);" stylesheets="@../../../../styles/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rgu.cm2100.controllers.OrderManagerController">
    <children>
       <ListView fx:id="listOrders" layoutX="55.0" layoutY="102.0" onMouseClicked="#onOrderSelect" prefHeight="458.0" prefWidth="317.0" style="-fx-background-color: rgb(70,70,70);" />
       <Label alignment="CENTER" layoutX="55.0" layoutY="59.0" prefHeight="43.0" prefWidth="316.0" style="-fx-background-color: rgb(33, 33, 33);" text="Orders" textFill="#f0f0f0" />
