@@ -31,22 +31,22 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        // -------------------------------------------------------------------------------
-        // TESTING ######################################################################
-        // Test orders
-        // Test Pizza class
+        /*
+         * -------------------------------------------------------------------------------
+         * Add sample information to the project section -- START
+         * -------------------------------------------------------------------------------
+         */
+        // Create pizza, drinks and sides
         Pizza margherita = new Pizza("Margherita", Crust.THIN);
         Pizza pepperoni = new Pizza("Pepperoni", Crust.THICK);
         margherita.addToppings(new PizzaTopping("Cheese", 5), new PizzaTopping("Basil", 2));
         pepperoni.addToppings(new PizzaTopping("Cheese", 5), new PizzaTopping("Pepperoni", 10), new PizzaTopping("Tomato Sauce", 5));
-
-        // Test Drink and Side class
         Drink cola = new Drink("Cola", 70);
         Drink whiskey = new Drink("Whiskey", 99);
         Side fries = new Side("Fries", 10);
         Side sweetPotato = new Side("Sweet Potato", 10);
 
-        // Add items and topping Menu Manager
+        // Add items and toppings to the Menu Manager
         menu.addItem(margherita);
         menu.addItem(pepperoni);
         menu.addItem(cola);
@@ -58,7 +58,7 @@ public class MainApp extends Application {
         menu.addTopping(new PizzaTopping("Pepperoni", 10));
         menu.addTopping(new PizzaTopping("Tomato Sauce", 5));
 
-        // Add items to order
+        // Create orders and add items to them
         Order order = new Order();
         Order order1 = new Order();
         Order order2 = new Order();
@@ -69,31 +69,32 @@ public class MainApp extends Application {
         order.addItem(fries);
         order.addItem(sweetPotato);
         order.addItem(margherita);
-
-        order1.addItem(cola);
-        order1.addItem(whiskey);
-
-        order2.addItem(sweetPotato);
-        order2.addItem(pepperoni);
-        order2.addItem(pepperoni);
         order.addItem(pepperoni);
         order.addItem(cola);
         order.addItem(whiskey);
         order.addItem(sweetPotato);
         order.addItem(margherita);
-        // Add order to orderManager
+        order1.addItem(cola);
+        order1.addItem(whiskey);
+        order2.addItem(sweetPotato);
+        order2.addItem(pepperoni);
+        order2.addItem(pepperoni);
+
+        // Add orders to Order Manager
         orderManager.addOrder(order);
         orderManager.addOrder(order1);
         orderManager.addOrder(order2);
-        // TESTING ######################################################################
-        // -------------------------------------------------------------------------------
+        /*
+         * -------------------------------------------------------------------------------
+         *  Add sample information to the project section -- END
+         * -------------------------------------------------------------------------------
+         */
 
 
-
+        // Get fxmlLoader for mainScene.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
 
-
-        // Create the main controller and add data to it
+        // Create the main controller and add data to it before adding it to the fxml file
         MainController mainController = new MainController();
         mainController.linkFxmlWithModel("createOrder", orderManager);
         mainController.linkFxmlWithModel("createPizza", menu);
@@ -101,28 +102,15 @@ public class MainApp extends Application {
         mainController.linkFxmlWithModel("orderManager", orderManager);
         mainController.linkFxmlWithModel("addToppings", menu);
 
-
         // Assign the main controller to the fxml file, and load the file
         fxmlLoader.setController(mainController);
         Parent parent = fxmlLoader.load();
 
-        // Get the main controller
-        // MainController mainController = fxmlLoader.getController();
-
-        // Assign models to fxml files and store them in mainController
-//        mainController.linkFxmlWithModel("createOrder", orderManager);
-//        mainController.linkFxmlWithModel("menuManager", menu);
-//        mainController.linkFxmlWithModel("orderManager", orderManager);
-        System.out.println("Links added");
         // Display screen
         stage.setScene(new Scene(parent, 1300, 700));
         stage.setTitle("Restaurant Manager");
         stage.setResizable(false);
         stage.show();
-
-        // TODO Replace this with @FXML private void initialize() in MainController
-        // Initialize the first screen
-        // mainController.initializeFirstScreen();
     }
 
     public static void main(String[] args) {

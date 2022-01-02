@@ -21,7 +21,11 @@ public class OrderManager extends Model {
     public OrderManager(){
         this.orders = new ArrayList<>();
     }
-    
+
+    /**
+     * Add order and trigger event listeners
+     * @param order The order to be added to the list
+     */
     public void addOrder(Order order){
         this.orders.add(order);
         this.firePropertyChange("orders");

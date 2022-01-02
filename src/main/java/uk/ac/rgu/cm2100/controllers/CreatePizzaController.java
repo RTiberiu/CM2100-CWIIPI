@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.model.Crust;
 import uk.ac.rgu.cm2100.model.Pizza;
@@ -19,56 +18,83 @@ import java.util.Arrays;
 
 public class CreatePizzaController extends Controller<MenuManager> {
 
+    // Local variables and @FXML elements.
     private MainController mainController;
-    private ArrayList<PizzaTopping> toppings;
+    private Pizza currentPizza;
     @FXML private ListView listToppings, listCurrentPizza;
     @FXML private Button btnReturnToMenuManager, btnAddToppings;
     @FXML private ChoiceBox choiceCrust;
     @FXML private TextArea textPizzaName;
 
+    /**
+     * Assign the main controller to allow communication between controllers
+     * @param mainController
+     */
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Add the selected PizzaTopping to the currentPizza object
+     */
     @FXML private void addToppingToPizza() {
         PizzaTopping selected = (PizzaTopping) listToppings.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            toppings.add(selected);
-            listCurrentPizza.setItems(FXCollections.observableList(toppings));
+            currentPizza.addToppings(selected);
         }
     }
 
+    /**
+     * Remove the selected PizzaTopping from the currentPizza object
+     */
     @FXML private void removeToppingFromPizza() {
         PizzaTopping selected = (PizzaTopping) listCurrentPizza.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            toppings.remove(selected);
-            listCurrentPizza.setItems(FXCollections.observableList(toppings));
+            currentPizza.removeTopping(selected);
         }
     }
 
-    // TODO Add toppings arrayList to a new Pizza object
+    /**
+     * When all information needed is available, set the name of the pizza, set the crust, add it
+     * to the model and change to the Menu Manager tab in the main scene (mainScene.fxml) by
+     * calling returnToMenuManager().
+     * @throws IOException
+     */
     @FXML private void addPizzaToMenu() throws IOException {
-        // Create pizza, add items to it, add it to the menu and switch to menu manager
-        if (toppings.size() != 0 && choiceCrust.getValue() != null && textPizzaName.getText().length() != 0) {
-             Pizza pizza = new Pizza(textPizzaName.getText(), (Crust) choiceCrust.getValue());
-             toppings.forEach(pizza::addToppings);
-             model.addItem(pizza);
-             returnToMenuManager();
+        String pizzaName = textPizzaName.getText().trim();
+        // Check if any fields are empty before creating the pizza
+        if (currentPizza.getToppings().size() != 0 && choiceCrust.getValue() != null && pizzaName.length() != 0) {
+            currentPizza.setName(pizzaName);
+            currentPizza.setCrust((Crust) choiceCrust.getValue());
+            model.addItem(currentPizza);
+            returnToMenuManager();
         }
     }
 
+    /**
+     * Change to the Menu Manager tab in the main screen (mainScene.fxml).
+     * @throws IOException
+     */
     @FXML private void returnToMenuManager() throws IOException {
         Stage stage = (Stage) btnReturnToMenuManager.getScene().getWindow();
         mainController.changeToMainScreen(stage, 1);
     }
 
+    /**
+     * Change scene to addToppings.fxml by calling .changeScene from MainController
+     * @throws IOException
+     */
     @FXML private void addToppings() throws IOException {
         Stage stage = (Stage) btnAddToppings.getScene().getWindow();
         mainController.changeScene("addToppings", stage);
     }
 
-
+    /**
+     * Set the model for the controller, initialize the currentPizza object, and add the event
+     * listeners.
+     * @param model The manager containing the information.
+     */
     @Override
     public void setModel(MenuManager model) {
         this.model = model;
@@ -76,10 +102,24 @@ public class CreatePizzaController extends Controller<MenuManager> {
         // Adding toppings to list and crust choices
         listToppings.setItems(FXCollections.observableList(model.getToppings()));
         choiceCrust.setItems(FXCollections.observableList(new ArrayList<>(Arrays.asList(Crust.values()))));
-        toppings = new ArrayList<>();
+
+        // Initialize the current pizza object
+        currentPizza = new Pizza();
+
+        /*
+         * Add an event listener on the model to track any changes in the available toppings and
+         * update the listToppings ListView
+         */
         this.model.addPropertyChangeSupportListener((evt) -> {
-            System.out.println("Event listener triggered Create Pizza Controller");
             listToppings.setItems(FXCollections.observableList(model.getToppings()));
+        });
+
+        /*
+         * Add an event listener on the current pizza to track any changes in toppings and update
+         * the listCurrentPizza ListView
+         */
+        this.currentPizza.addPropertyChangeSupportListener((evt) -> {
+            listCurrentPizza.setItems(FXCollections.observableList(currentPizza.getToppings()));
         });
     }
 }

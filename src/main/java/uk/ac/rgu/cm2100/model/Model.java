@@ -20,12 +20,16 @@ public abstract class Model {
     public Model(){
         this.pcs = new PropertyChangeSupport(this);
     }
-    
+
+
     public final void addPropertyChangeSupportListener(PropertyChangeListener listener){
         this.pcs.addPropertyChangeListener(listener);
     }
 
-    // Test
+    /**
+     * Fire the property change to the event listeners
+     * @param name The name of the property changed
+     */
     protected final void firePropertyChange(String name) {
         PropertyChangeEvent evt = new PropertyChangeEvent(this, name, null, null);
         this.pcs.firePropertyChange(evt);

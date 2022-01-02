@@ -2,23 +2,14 @@ package uk.ac.rgu.cm2100.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import uk.ac.rgu.cm2100.MainApp;
 import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Model;
-import uk.ac.rgu.cm2100.model.Order;
-import uk.ac.rgu.cm2100.model.managers.MenuManager;
-import uk.ac.rgu.cm2100.model.managers.OrderManager;
-
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,26 +26,39 @@ public class MainController {
         this.models = new HashMap<>();
     }
 
-    // Add fxml file names and their respective model to a map
+    /**
+     * Add fxml file names and their respective model to a map. This links each fxml file to a
+     * model.
+     * @param fxml String representing the fxml file.
+     * @param model The manager containing the information.
+     */
     public void linkFxmlWithModel(String fxml, Model model) {
         models.put(fxml, model);
     }
 
-    // Assign main controllers and set models
+
+    /**
+     * When mainScene.fxml is first initialized, call setMainController() and setModel() for the
+     *  tab's (orderManager.fxml and menuManager.fxml) controllers. This ensures data is available
+     *  for both tabs.
+     * @throws IOException
+     */
     @FXML private void initialize() throws IOException {
-        System.out.println("Initialize first screen...");
         Controller orderController = orderManagerController;
         Controller menuController = menuManagerController;
         orderController.setMainController(MainController.this);
         menuController.setMainController(MainController.this);
         orderController.setModel(models.get("orderManager"));
-        //  TODO Might have to delete the setModel for menuManager
         menuController.setModel(models.get("menuManager"));
     }
 
-    // Change scene, trigger setModel and setMainController
+    /**
+     * Change scene and trigger setModel() and setMainController() if they're unassigned.
+     * @param scene String representing the scene to be changed to
+     * @param stage Current stage
+     * @throws IOException
+     */
     public void changeScene(String scene, Stage stage) throws IOException {
-        System.out.println("Change Scene!");
         // Display the scene
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(scene + ".fxml"));
         Parent parent = fxmlLoader.load();
@@ -71,7 +75,12 @@ public class MainController {
         }
     }
 
-    // Resume to main screen
+    /**
+     * Change to the mainScene.fxml and display the desired tab
+     * @param stage Current stage
+     * @param tab Integer representing the tab to be displayed
+     * @throws IOException
+     */
     public void changeToMainScreen(Stage stage, int tab) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("mainScene.fxml"));
         fxmlLoader.setController(MainController.this);
@@ -80,10 +89,12 @@ public class MainController {
 
         // Select tab
         mainTabPane.getSelectionModel().select(tab);
-        System.out.println("Changed to main screen!");
     }
 
-    // Allow other Controllers to get items from MenuManagerController
+    /**
+    * Allow other controllers to get all IMenuItems from MenuManagerController
+     * @return A list containing all IMenuItems
+     */
     public List<IMenuItem> getAvailableItems() {
         return menuManagerController.model.getItems();
     }

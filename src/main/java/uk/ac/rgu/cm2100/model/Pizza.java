@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author mark
+ * @author marks
  */
 public class Pizza extends Model implements IMenuItem{
 
@@ -20,15 +20,42 @@ public class Pizza extends Model implements IMenuItem{
     private List<PizzaTopping> toppings;
     
     private final int BASE_PRICE = 200; //base price for all pizzas before toppings
-    
+
+    // Constructors
+    public Pizza() {
+        this.toppings = new ArrayList<>();
+    }
+
     public Pizza(String name, Crust crust){
         this.name = name;
         this.crust = crust;
         this.toppings = new ArrayList<>();
     }
-    
+
+    // Setters & getters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCrust(Crust crust) {
+        this.crust = crust;
+    }
+
+    public List<PizzaTopping> getToppings() {
+        return toppings;
+    }
+
+    // Methods
+    // Add topping and trigger event listeners
     public void addToppings(PizzaTopping... toppings){
         this.toppings.addAll(Arrays.asList(toppings));
+        this.firePropertyChange("toppings");
+    }
+
+    // Remove topping and trigger event listeners
+    public void removeTopping(PizzaTopping topping) {
+        this.toppings.remove(topping);
+        this.firePropertyChange("toppings");
     }
     
     @Override
@@ -63,5 +90,6 @@ public class Pizza extends Model implements IMenuItem{
     public String toString(){
         return this.name + "\t" + this.price() + "p";
     }
-    
+
+
 }

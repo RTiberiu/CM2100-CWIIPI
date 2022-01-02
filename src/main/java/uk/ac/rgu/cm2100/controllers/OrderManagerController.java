@@ -2,14 +2,8 @@ package uk.ac.rgu.cm2100.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import uk.ac.rgu.cm2100.MainApp;
-import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
 import java.io.IOException;
@@ -17,27 +11,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static uk.ac.rgu.cm2100.MainApp.main;
-import static uk.ac.rgu.cm2100.MainApp.menu;
-
 public class OrderManagerController extends Controller<OrderManager> {
 
+    // Local variables and @FXML elements.
     private MainController mainController;
     @FXML private ListView listOrders, listOrderDetails;
     @FXML private Label totalOrder;
     @FXML private Button btnAddOrder;
 
     /**
-     * Assign the main controller to allow communication between controllers
-     * @param mainController
+     * Assign the main controller to allow communication between controllers.
+     * @param mainController The main controller to be set
      */
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
-    public void onOrderSelect() {
-        System.out.println("Triggered!");
+    /**
+     * Display the details of each order in the details ListView.
+     */
+    @FXML private void onOrderSelect() {
         // Get order from selected String
         String selected = (String) listOrders.getSelectionModel().getSelectedItem();
 
@@ -58,12 +52,20 @@ public class OrderManagerController extends Controller<OrderManager> {
         }
     }
 
-    // Change scene by calling .changeScene from MainController
+    /**
+     * Change scene to createOrder.fxml by calling .changeScene from MainController
+     * @throws IOException
+     */
     public void changeToAddOrderScene() throws IOException {
         Stage stage = (Stage) btnAddOrder.getScene().getWindow();
         mainController.changeScene("createOrder", stage);
     }
-    
+
+    /**
+     * Get a simple order list from all the available order objects. This will be in the form of:
+     * Order 1, Order 2, etc.
+     * @return A String List containing the simple orders.
+     */
     public List<String> getSimpleOrderList() {
         int numberOfOrders = this.model.getOrders().size();
         List<String> simpleOrderList = new ArrayList<>();
@@ -73,9 +75,12 @@ public class OrderManagerController extends Controller<OrderManager> {
         return simpleOrderList;
     }
 
+    /**
+     * Set the model for the controller and add an event listener.
+     * @param model The manager containing the information.
+     */
     @Override
     public void setModel(OrderManager model) {
-        System.out.println("Setting OrderManagerController!");
         this.model = model;
         // Assign all orders to the ListOrders ListView
         listOrders.setItems(FXCollections.observableList(getSimpleOrderList()));

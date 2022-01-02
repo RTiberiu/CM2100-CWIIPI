@@ -23,12 +23,24 @@ public class Order extends Model implements IOrder {
     public Order(){
         this.items = new ArrayList<>();
     }
-    
+
+    // Add item and trigger event listeners
     public void addItem(IMenuItem item){
         this.items.add(item);
         this.firePropertyChange("items");
     }
-    
+
+    // Remove item and trigger event listeners
+    public void removeItem(IMenuItem item) {
+        this.items.remove(item);
+        this.firePropertyChange("items");
+    }
+
+    // Get all items from order
+    public List<IMenuItem> getItems() {
+        return items;
+    }
+
     public void sortByName(){
         Collections.sort(this.items);
     }
