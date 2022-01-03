@@ -9,8 +9,5 @@
         <module name="CWIIPartI" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="CWIIPartI" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

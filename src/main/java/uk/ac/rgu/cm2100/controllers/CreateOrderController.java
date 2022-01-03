@@ -63,7 +63,7 @@ public class CreateOrderController extends Controller<OrderManager> {
      * @throws IOException
      */
     @FXML private void onAddOrder() throws IOException {
-        if (currentOrder.getItems() != null) {
+        if (currentOrder.getItems().size() != 0) {
             model.addOrder(currentOrder);
             returnToOrderManager();
         }
