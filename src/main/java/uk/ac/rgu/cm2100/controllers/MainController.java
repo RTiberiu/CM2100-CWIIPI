@@ -43,7 +43,7 @@ public class MainController {
      *  for both tabs.
      * @throws IOException
      */
-    @FXML private void initialize() throws IOException {
+    @FXML private void initialize() {
         Controller orderController = orderManagerController;
         Controller menuController = menuManagerController;
         orderController.setMainController(MainController.this);

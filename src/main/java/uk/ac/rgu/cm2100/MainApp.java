@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
-import uk.ac.rgu.cm2100.controllers.Controller;
 import uk.ac.rgu.cm2100.controllers.MainController;
 import uk.ac.rgu.cm2100.model.*;
 import uk.ac.rgu.cm2100.model.managers.MenuManager;
