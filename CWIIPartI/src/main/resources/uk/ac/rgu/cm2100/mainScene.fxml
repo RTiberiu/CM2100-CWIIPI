@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../../../../styles/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <TabPane fx:id="mainTabPane" prefHeight="700" prefWidth="1300" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabOrderManager" style="-fx-background-color: rgb(60,60,60); -fx-text-base-color: rgb(255,255,255); -fx-focus-color: rgb(234,170,0);" text="Order Manager">
+               <content>
+                  <fx:include fx:id="orderManager" source="orderManager.fxml" />
+               </content>
+          </Tab>
+          <Tab fx:id="tabMenuManager" style="-fx-background-color: rgb(60,60,60); -fx-text-base-color: rgb(255,255,255); -fx-focus-color: rgb(234,170,0);" text="Menu Manager">
+            <content>
+                  <VBox prefWidth="902.0" style="-fx-background-color: rgb(44,44,44);">
+                     <children>
+                        <fx:include fx:id="menuManager" source="menuManager.fxml" />
+                     </children></VBox>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>
