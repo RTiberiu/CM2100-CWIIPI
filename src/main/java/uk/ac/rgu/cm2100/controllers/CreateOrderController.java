@@ -56,8 +56,6 @@ public class CreateOrderController extends Controller<OrderManager> {
         }
     }
 
-    // If order is not empty, add it to the model
-
     /**
      * Add order to the model, if the order is not empty.
      * @throws IOException
