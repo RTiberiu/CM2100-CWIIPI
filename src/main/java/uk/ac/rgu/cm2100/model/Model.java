@@ -10,8 +10,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Provides a base class for MVC models, adding PropertyChangeSupport
- * @author mark
+ * Model.java, edited by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
  */
 public abstract class Model {
     

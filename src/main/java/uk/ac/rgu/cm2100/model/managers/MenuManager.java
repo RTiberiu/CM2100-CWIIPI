@@ -12,8 +12,8 @@ import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.PizzaTopping;
 
 /**
- *
- * @author mark
+ * MenuManager.java, edited by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
  */
 public class MenuManager extends Model {
     

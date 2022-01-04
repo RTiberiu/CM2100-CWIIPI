@@ -13,8 +13,8 @@ import java.util.List;
 import uk.ac.rgu.cm2100.model.IMenuItem.PriceComparator;
 
 /**
- *
- * @author mark
+ * Order.java, edited by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
  */
 public class Order extends Model implements IOrder {
     

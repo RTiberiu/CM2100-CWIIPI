@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
- * @author marks
+ * Pizza.java, edited by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
  */
 public class Pizza extends Model implements IMenuItem{
 

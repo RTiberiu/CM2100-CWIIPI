@@ -13,7 +13,7 @@ import uk.ac.rgu.cm2100.model.managers.OrderManager;
 
 /**
  * MainApp.java, edited by Tiberiu Rociu
- * Component 2 Part 1 - 17/12/2021-
+ * Component 2 Part 1 - 17/12/2021
  */
 
 public class MainApp extends Application {

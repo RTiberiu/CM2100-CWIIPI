@@ -9,7 +9,10 @@ import uk.ac.rgu.cm2100.model.IMenuItem;
 import uk.ac.rgu.cm2100.model.Order;
 import uk.ac.rgu.cm2100.model.managers.OrderManager;
 import java.io.IOException;
-
+/**
+ * CreateOrderController.java, created by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
+ */
 public class CreateOrderController extends Controller<OrderManager> {
 
     // Local variables and @FXML elements.

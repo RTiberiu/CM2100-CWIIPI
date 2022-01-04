@@ -11,8 +11,8 @@ import uk.ac.rgu.cm2100.model.Model;
 import uk.ac.rgu.cm2100.model.Order;
 
 /**
- *
- * @author mark
+ * OrderManager.java, edited by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
  */
 public class OrderManager extends Model {
     

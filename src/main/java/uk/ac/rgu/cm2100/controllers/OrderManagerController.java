@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * OrderManagerController.java, created by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
+ */
 public class OrderManagerController extends Controller<OrderManager> {
 
     // Local variables and @FXML elements.

@@ -12,7 +12,10 @@ import uk.ac.rgu.cm2100.model.Model;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * MainController.java, created by Tiberiu Rociu
+ * Component 2 Part 1 - 17/12/2021
+ */
 public class MainController {
     private HashMap<String, Model> models;
     @FXML private MenuManagerController menuManagerController;
